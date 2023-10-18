@@ -24,10 +24,10 @@ module Novofon
         request.headers["Authorization"] = "#{@api_key}:#{signature("/v1#{path}", params)}"
       end
 
-      result = ActiveSupport::JSON.decode(response.body).with_indifferent_access
+      result = ActiveSupport::JSON.decode(response.body)&.with_indifferent_access
       raise Novofon::Error, "Error [HTTP #{response.status}]: #{result[:message]} " unless result[:status] == "success"
 
-      result.except("status")
+      result&.except("status")
     rescue ActiveSupport::JSON.parse_error
       raise Novofon::Error, "Response is not JSON: #{response.body}"
     end
@@ -43,7 +43,7 @@ module Novofon
     end
 
     def signature(url, params)
-      query = Hash[params.sort].to_query
+      query = params.sort.to_h.to_query
       sign_str = url + query + Digest::MD5.hexdigest(query)
       Base64.encode64(OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), @api_secret, sign_str)).strip
     end

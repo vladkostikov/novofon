@@ -5,7 +5,6 @@ require_relative "lib/novofon/version"
 Gem::Specification.new do |spec|
   spec.name = "novofon"
   spec.version = Novofon::VERSION
-  spec.date = "2023-10-18"
   spec.authors = ["Vladislav Kostikov"]
   spec.email = ["vlad@kostikov.ru"]
 
@@ -16,6 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").reject do |f|
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport"
-  spec.add_dependency "faraday"
-  spec.add_dependency "json"
+  spec.add_dependency "activesupport", ">= 1"
+  spec.add_dependency "faraday", ">= 1"
+  spec.add_dependency "json", ">= 1"
 end
