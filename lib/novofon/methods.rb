@@ -14,6 +14,10 @@ module Novofon
       request :get, "/request/callback/", params.merge(from: from, to: to)
     end
 
+    def checknumber(caller_id, to, code)
+      request :get, "/request/checknumber/", params.merge(caller_id: caller_id, to: to, code: code)
+    end
+
     def sip
       request :get, "/sip/"
     end
