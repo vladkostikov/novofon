@@ -14,7 +14,7 @@ module Novofon
       request :get, "/request/callback/", params.merge(from: from, to: to)
     end
 
-    def checknumber(caller_id, to, code)
+    def checknumber(caller_id, to, code, params = {})
       request :get, "/request/checknumber/", params.merge(caller_id: caller_id, to: to, code: code)
     end
 
